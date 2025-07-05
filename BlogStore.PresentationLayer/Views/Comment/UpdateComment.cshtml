@@ -1,0 +1,92 @@
+﻿@model BlogStore.EntityLayer.Entities.Comment
+@{
+    ViewData["Title"] = "UpdateComment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-wrapper {
+        background: white;
+        padding: 3rem 4rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 28px rgba(93, 135, 255, 0.2);
+        max-width: 650px;
+        margin: 2rem auto;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #5D87FF;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    label {
+        font-weight: 700;
+        color: #5D87FF;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    input[type="text"] {
+        border: 2px solid #f48fb1;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 1.05rem;
+        width: 100%;
+        box-sizing: border-box;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #5D87FF;
+            box-shadow: 0 0 10px rgba(93, 135, 255, 0.6);
+            background: #f0f4ff;
+        }
+
+    button.btn-success {
+        background: linear-gradient(135deg, #f48fb1, #5D87FF);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 700;
+        color: white;
+        width: 100%;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+    }
+
+        button.btn-success:hover {
+            background: linear-gradient(135deg, #5D87FF, #f48fb1);
+            box-shadow: 0 10px 24px rgba(93, 135, 255, 0.4);
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="form-wrapper">
+    <h2>Yorum Güncelle</h2>
+    <form method="post">
+        <input type="hidden" asp-for="CommentId" />
+
+        <label for="UserNameSurname">Yorum Yazar Adı</label>
+        <input type="text" asp-for="UserNameSurname" class="form-control" />
+
+        <br />
+        <label for="CommentDetail">Yorum Detayı</label>
+        <input type="text" asp-for="CommentDetail" class="form-control" />
+
+        <br />
+        <button class="btn btn-success">Güncelle</button>
+    </form>
+</div>

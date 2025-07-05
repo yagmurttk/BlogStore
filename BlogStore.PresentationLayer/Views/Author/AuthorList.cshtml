@@ -1,0 +1,138 @@
+﻿@model List<BlogStore.EntityLayer.Entities.AppUser>
+
+@{
+    ViewData["Title"] = "AuthorList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: white;
+        padding: 2.5rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 6px 24px rgba(93, 135, 255, 0.15);
+    }
+
+    .row.mb-4 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+        .row.mb-4 h1 {
+            font-weight: 700;
+            color: #5D87FF;
+            margin: 0 0 10px 0;
+        }
+
+        .row.mb-4 h2 {
+            font-weight: 700;
+            color: #f48fb1;
+            margin: 0 0 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0 8px 24px rgba(244, 143, 177, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        background: #fff0f6;
+    }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(93, 135, 255, 0.5);
+        }
+
+    .card-body {
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+        .card-body img {
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border: 4px solid #f48fb1;
+            margin-bottom: 1rem;
+        }
+
+    .card-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #5D87FF;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #7e7e7e;
+        margin-bottom: 1rem;
+        min-height: 48px; /* Kartların aynı hizada görünmesi için */
+    }
+
+    .text-primary {
+        color: #f48fb1 !important;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #f48fb1, #5D87FF);
+        border: none;
+        padding: 10px 28px;
+        border-radius: 30px;
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 6px 18px rgba(93, 135, 255, 0.4);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5D87FF, #f48fb1);
+            box-shadow: 0 8px 24px rgba(244, 143, 177, 0.6);
+            transform: translateY(-3px);
+            color: white;
+            text-decoration: none;
+        }
+</style>
+
+<div class="container">
+    <div class="row mb-4">
+        <h1>@Model.Count Yazar</h1>
+        <h2>Yazarlar</h2>
+    </div>
+
+    <div class="row">
+        @foreach (var author in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <img src="@author.ImageUrl" alt="@author.Name" />
+                        <h5 class="card-title">@author.Name @author.Surname</h5>
+                        <p class="card-text">@author.Description</p>
+                        <p class="text-primary"><strong>@author.Articles.Count</strong> Blog</p>
+                        <a href="/Author/AuthorDetail/@author.Id" class="btn btn-primary">Yazarın Blogları</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

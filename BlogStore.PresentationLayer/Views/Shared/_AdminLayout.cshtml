@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog Admin Panel</title>
+    <link rel="shortcut icon" type="image/png" href="~/flexy-bootstrap-lite-1.0.0/assets/images/logos/favicon-2.png" />
+    <link rel="stylesheet" href="~/flexy-bootstrap-lite-1.0.0/assets/css/styles.min.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                    <a href="/Dashboard/Index" class="text-nowrap logo-img">
+                        <img src="~/flexy-bootstrap-lite-1.0.0/assets/images/logos/logo.svg" alt="BlogStore Admin" />
+                    </a>
+                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                        <i class="ti ti-x fs-6"></i>
+                    </div>
+                </div>
+
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu">Gösterge Paneli</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Dashboard/Index" aria-expanded="false">
+                                <i class="ti ti-atom"></i>
+                                <span class="hide-menu">Gösterge Paneli</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="sidebar-divider lg"></span>
+                        </li>
+                        <li class="nav-small-cap">
+                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu">Blog İşlemleri</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Author/MyArticleList" aria-expanded="false">
+                                <i class="ti ti-article"></i>
+                                <span class="hide-menu">Bloglarım</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Author/CreateArticle" aria-expanded="false">
+                                <i class="ti ti-plus"></i>
+                                <span class="hide-menu">Yeni Blog</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Category/CategoryList" aria-expanded="false">
+                                <i class="ti ti-category"></i>
+                                <span class="hide-menu">Kategoriler</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Comment/CommentList" aria-expanded="false">
+                                <i class="ti ti-message"></i>
+                                <span class="hide-menu">Yorumlar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="sidebar-divider lg"></span>
+                        </li>
+                        <li class="nav-small-cap">
+                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu">Kullanıcılar</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Author/AuthorList" aria-expanded="false">
+                                <i class="ti ti-users"></i>
+                                <span class="hide-menu">Yazarlar</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Author/GetProfile" aria-expanded="false">
+                                <i class="ti ti-user"></i>
+                                <span class="hide-menu">Profilim</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="sidebar-divider lg"></span>
+                        </li>
+                        <li class="nav-small-cap">
+                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu"></span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Default/Index" aria-expanded="false">
+                                <i class="ti ti-world"></i>
+                                <span class="hide-menu">Ana Sayfa</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" onclick="event.preventDefault(); if(confirm('Çıkış yapmak istediğinizden emin misiniz?')) { document.getElementById('logout-form').submit(); }">
+                                <i class="ti ti-logout"></i>
+                                <span class="hide-menu">Çıkış Yap</span>
+                            </a>
+
+                            <form id="logout-form" asp-controller="Login" asp-action="Logout" method="post" style="display: none;"></form>
+                        </li>
+
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <!--  Header End -->
+            <!-- ⭐ ANA İÇERİK ALANI - RENDERBODY BURAYA GELDİ -->
+            <div class="body-wrapper-inner">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+
+                <!-- Footer -->
+                <div class="py-6 px-6 text-center">
+                    <p class="mb-0 fs-4">
+                        Design and Developed by <a href="#" class="pe-1 text-primary text-decoration-underline">Mermilius </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/js/sidebarmenu.js"></script>
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/js/app.min.js"></script>
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/libs/simplebar/dist/simplebar.js"></script>
+    <!-- Solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

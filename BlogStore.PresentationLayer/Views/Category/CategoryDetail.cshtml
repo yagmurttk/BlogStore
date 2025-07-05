@@ -1,0 +1,58 @@
+﻿@model List<BlogStore.EntityLayer.Entities.Article>
+
+@{
+    ViewData["Title"] = "CategoryDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="text-center bg-light p-5 rounded">
+                    <i class="bi bi-folder-fill text-primary" style="font-size: 4rem;"></i>
+                    <h2 class="mt-3">@ViewBag.CategoryName</h2>
+                    <p class="text-muted">@ViewBag.CategoryDescription</p>
+                    <span class="badge bg-primary">@ViewBag.ArticleCount article</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h3>articles</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            @if (Model.Any())
+            {
+                @foreach (var article in Model)
+                {
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <img src="@article.ImageUrl" class="card-img-top" alt="@article.Title" style="height: 200px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@article.Title</h5>
+                                <p class="card-text">@article.Description.Substring(0, Math.Min(article.Description.Length, 100))...</p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">@article.AppUser.Name @article.AppUser.Surname</small>
+                                        <small class="text-muted">@article.CreatedDate.ToString("dd-MMM-yyyy")</small>
+                                    </div>
+                                    <a href="/Article/ArticleDetail/@article.Slug" class="btn btn-primary btn-sm mt-2 w-100">read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <p class="text-center text-muted">this category does not have any articles yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

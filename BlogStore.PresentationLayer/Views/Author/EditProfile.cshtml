@@ -1,0 +1,156 @@
+﻿@model BlogStore.EntityLayer.Entities.AppUser
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .profile-card {
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .profile-image {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #0d6efd;
+    }
+
+    .form-label i {
+        margin-right: 6px;
+        color: #0d6efd;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4><i class="ti ti-edit me-2"></i>Profili Düzenle</h4>
+        <a href="/Author/GetProfile" class="btn btn-outline-secondary">
+            <i class="ti ti-arrow-left me-1"></i>Porfile Geri Dön
+        </a>
+    </div>
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="ti ti-check me-2"></i>@ViewBag.Success
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="ti ti-x me-2"></i>@ViewBag.Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <form method="post" asp-action="EditProfile">
+        <div class="row">
+            <!-- Profile Photo -->
+            <div class="col-lg-4 mb-4">
+                <div class="profile-card text-center">
+                    <h5 class="mb-4">Profile Picture</h5>
+
+                    <img id="profilePreview"
+                         src="@(Model.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                         alt="Profile Picture"
+                         class="profile-image mb-3"
+                         onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';" />
+
+                    <div class="form-group mt-3">
+                        <label asp-for="ImageUrl" class="form-label">Image URL</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/photo.jpg" onchange="updatePreview(this.value)">
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Info -->
+            <div class="col-lg-8 mb-4">
+                <div class="profile-card">
+                    <h5 class="mb-4">Personal Information</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Name" class="form-label">
+                                <i class="ti ti-user"></i>Name
+                            </label>
+                            <input asp-for="Name" class="form-control" placeholder="Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Surname" class="form-label">
+                                <i class="ti ti-user"></i>Surname
+                            </label>
+                            <input asp-for="Surname" class="form-control" placeholder="Surname">
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="ti ti-mail"></i>Email
+                            </label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="email@example.com">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label asp-for="PasswordHash" class="form-label">
+                                <i class="ti ti-mail"></i>Şifre
+                            </label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="email@example.com">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+                            <label asp-for="Description" class="form-label">
+                                <i class="ti ti-file-text"></i>About Me
+                            </label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe yourself..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ti ti-device-floppy me-1"></i>Save
+                        </button>
+                        <a href="/Author/GetProfile" class="btn btn-outline-secondary">
+                            <i class="ti ti-x me-1"></i>Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function updatePreview(imageUrl) {
+        const preview = document.getElementById('profilePreview');
+        if (imageUrl && imageUrl.trim() !== '') {
+            preview.src = imageUrl;
+            preview.onerror = function () {
+                this.src = '/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';
+            };
+        } else {
+            preview.src = '/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';
+        }
+    }
+</script>
+
+<!-- ✅ FORM VALIDATION SCRIPT'LERİ: SORUNSUZ ÇALIŞIR -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>

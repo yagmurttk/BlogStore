@@ -1,0 +1,57 @@
+﻿@model List<BlogStore.EntityLayer.Entities.Article>
+
+@{
+    ViewData["Title"] = "AuthorDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="text-center bg-light p-5 rounded">
+                    <img src="@ViewBag.AuthorImage" alt="@ViewBag.AuthorName" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h2>@ViewBag.AuthorName</h2>
+                    <p class="text-muted">@ViewBag.AuthorDescription</p>
+                    <span class="badge bg-primary">@ViewBag.ArticleCount Makale</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h3>Makaleleri</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            @if (Model.Any())
+            {
+                @foreach (var article in Model)
+                {
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <img src="@article.ImageUrl" class="card-img-top" alt="@article.Title" style="height: 200px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <span class="badge bg-secondary mb-2">@article.Category.CategoryName</span>
+                                <h5 class="card-title">@article.Title</h5>
+                                <p class="card-text">@article.Description.Substring(0, Math.Min(article.Description.Length, 100))...</p>
+                                <div class="mt-auto">
+                                    <small class="text-muted">@article.CreatedDate.ToString("dd-MMM-yyyy")</small>
+                                    <br>
+                                    <a href="/Article/ArticleDetail/@article.Slug" class="btn btn-primary btn-sm mt-2">Devamını Oku</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <p class="text-center text-muted">Bu yazara ait henüz makale bulunmuyor.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

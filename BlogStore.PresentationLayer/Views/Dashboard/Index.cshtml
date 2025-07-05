@@ -1,0 +1,143 @@
+﻿﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-warning">
+        <i class="ti ti-alert-triangle me-2"></i>@ViewBag.Error
+    </div>
+}
+
+<!--  Row 1 -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Kategorilere göre Bloglar</h4>
+                        <p class="card-subtitle"></p>
+                    </div>
+                </div>
+                <div id="category-chart" class="mt-4 mx-n6" style="min-height: 275px;">
+                    @if (ViewBag.CategoryData?.Count == 0)
+                    {
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <p class="text-muted">unknown</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Yazar Durumu</h4>
+                        <p class="card-subtitle">Popüler Yazarlar</p>
+                    </div>
+                </div>
+                <div class="table-responsive mt-4">
+                    <table class="table mb-0 text-nowrap varient-table align-middle fs-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-0 text-muted">Yazarlar</th>
+                                <th scope="col" class="px-0 text-muted text-end">Bloglar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.TopAuthors?.Count > 0)
+                            {
+                                @foreach (var author in ViewBag.TopAuthors)
+                                {
+                                    <tr>
+                                        <td class="px-0">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@(author.User.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                                                     class="rounded-circle" width="40" alt="author"
+                                                     onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';" />
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0 fw-bolder">@author.User.Name @author.User.Surname</h6>
+                                                    <span class="text-muted">@(author.User.Email)</span>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-0 text-dark fw-medium text-end">@author.ArticleCount</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Yazar Bilgisi bulunmamaktadır.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+
+@section Scripts {
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script>
+        // 📊 CATEGORY BAR CHART
+        var categoryValue = @Html.Raw(Json.Serialize(ViewBag.CategoryData ?? new List<object>()));
+
+        if (categoryValue && categoryValue.length > 0) {
+            var options = {
+                series: [{
+                    name: "Blog Sayısı",
+                    data: categoryValue.map(x => x.value)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 275,
+                    toolbar: { show: false },
+                    foreColor: "#adb0bb",
+                    fontFamily: "inherit"
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        columnWidth: '50%',
+                        borderRadius: 4
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                xaxis: {
+                    categories: categoryValue.map(x => x.name)
+                },
+                colors: ['#5D87FF'],
+                tooltip: {
+                    theme: "dark",
+                    y: {
+                        formatter: function (val) {
+                            return val + " blog"
+                        }
+                    }
+                },
+                legend: {
+                    show: false
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#category-chart"), options);
+            chart.render();
+        }
+    </script>
+}

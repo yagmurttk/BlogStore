@@ -1,0 +1,147 @@
+﻿@model List<BlogStore.EntityLayer.Entities.Comment>
+@{
+    ViewData["Title"] = "CommentList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 2.5rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 6px 24px rgba(93, 135, 255, 0.15);
+    }
+
+    h1 {
+        color: #5D87FF;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    thead th {
+        background: #f48fb1;
+        color: white;
+        font-weight: 700;
+        padding: 12px 15px;
+        border-radius: 10px 10px 0 0;
+        text-align: left;
+    }
+
+    tbody tr {
+        background: #f0f4ff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(93, 135, 255, 0.1);
+        transition: background 0.3s ease;
+    }
+
+        tbody tr:hover {
+            background: #dbe9ff;
+        }
+
+    tbody td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        font-weight: 600;
+        color: #4a4a4a;
+    }
+
+    a.btn {
+        padding: 6px 16px;
+        border-radius: 25px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(93, 135, 255, 0.3);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    a.btn-danger {
+        background: #f48fb1;
+        color: white;
+        border: none;
+    }
+
+        a.btn-danger:hover {
+            background: #e040fb;
+            box-shadow: 0 6px 18px rgba(224, 64, 251, 0.6);
+        }
+
+    a.btn-info {
+        background: #5D87FF;
+        color: white;
+        border: none;
+    }
+
+        a.btn-info:hover {
+            background: #3a64d8;
+            box-shadow: 0 6px 18px rgba(58, 100, 216, 0.6);
+        }
+
+    a.btn-primary {
+        background: linear-gradient(135deg, #f48fb1, #5D87FF);
+        color: white;
+        border: none;
+        padding: 10px 28px;
+        border-radius: 30px;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        box-shadow: 0 6px 18px rgba(93, 135, 255, 0.4);
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        a.btn-primary:hover {
+            background: linear-gradient(135deg, #5D87FF, #f48fb1);
+            box-shadow: 0 8px 24px rgba(244, 143, 177, 0.6);
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: white;
+        }
+</style>
+
+<div class="container">
+    <h1>Yorumlar</h1>
+
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Yorum Yazar Adı</th>
+                <th>Yorum Detayı</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                    <td>@item.UserNameSurname</td>
+                    <td>@item.CommentDetail</td>
+                    <td><a href="/Comment/DeleteComment/@item.CommentId" class="btn btn-danger">Sil</a></td>
+                    <td><a href="/Comment/UpdateComment/@item.CommentId" class="btn btn-info">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/Comment/CreateComment/" class="btn btn-primary">Yeni Yorum Ekle</a>
+</div>

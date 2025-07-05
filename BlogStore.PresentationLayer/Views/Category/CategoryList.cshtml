@@ -1,0 +1,150 @@
+﻿@model List<BlogStore.DataAccessLayer.Dtos.GetCategoryWithArticleCountDto>
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .section {
+        max-width: 960px;
+        margin: 0 auto 3rem;
+    }
+
+    .posts-entry-title {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: #5D87FF;
+        border-left: 6px solid #f48fb1;
+        padding-left: 15px;
+        margin-bottom: 1rem;
+        position: relative;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+        .posts-entry-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 15px;
+            width: 80px;
+            height: 6px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #f48fb1, #5D87FF);
+            box-shadow: 0 4px 12px rgba(244, 143, 177, 0.7);
+        }
+
+    .text-muted {
+        font-weight: 600;
+        color: #666 !important;
+        font-size: 1.1rem;
+    }
+
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0 6px 24px rgba(93, 135, 255, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        background: #fff0f6;
+        border: none;
+    }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 36px rgba(244, 143, 177, 0.3);
+            background: #fbe8f0;
+        }
+
+    .card-body {
+        padding: 2rem 1.5rem;
+    }
+
+    .card-title {
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #5D87FF;
+        margin-top: 1rem;
+    }
+
+    .card-text {
+        font-weight: 500;
+        font-size: 1rem;
+        color: #777;
+        min-height: 48px; /* kartların aynı hizada durması için */
+    }
+
+    .text-primary {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #c2185b !important;
+        margin: 1rem 0;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #f48fb1, #5D87FF);
+        border: none;
+        padding: 10px 24px;
+        border-radius: 30px;
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 6px 18px rgba(93, 135, 255, 0.4);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5D87FF, #f48fb1);
+            box-shadow: 0 8px 24px rgba(244, 143, 177, 0.6);
+            transform: translateY(-3px);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Icon boyutu ve rengi */
+    .bi-folder-fill {
+        font-size: 3.5rem;
+        color: #c2185b;
+        transition: color 0.3s ease;
+    }
+
+    .card:hover .bi-folder-fill {
+        color: #5D87FF;
+    }
+</style>
+
+<div class="section">
+    <div class="container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-sm-6">
+                <h2 class="posts-entry-title">Kategoriler</h2>
+            </div>
+            <div class="col-sm-6 text-sm-end">
+                <span class="text-muted">@Model.Count Kategori</span>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var category in Model)
+            {
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-folder-fill"></i>
+                            <h5 class="card-title mt-3">@category.CategoryName</h5>
+                            <p class="card-text">@category.CategoryDescription</p>
+                            <p class="text-primary"><strong>@category.ArticleCount</strong> Blog</p>
+                            <a href="/Category/CategoryDetail/@category.CategoryId" class="btn btn-primary">Detayı Gör</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

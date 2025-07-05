@@ -1,0 +1,246 @@
+﻿@model BlogStore.EntityLayer.Entities.AppUser
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: white;
+        padding: 2.5rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 6px 24px rgba(93, 135, 255, 0.15);
+    }
+
+    .profile-card {
+        background: #fff0f6;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 24px rgba(244, 143, 177, 0.3);
+        transition: box-shadow 0.3s ease;
+    }
+
+        .profile-card:hover {
+            box-shadow: 0 12px 36px rgba(93, 135, 255, 0.5);
+        }
+
+    .profile-image {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #f48fb1;
+        margin-bottom: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+        .profile-image:hover {
+            border-color: #5D87FF;
+        }
+
+    .profile-header {
+        background: linear-gradient(90deg, #f48fb1 0%, #5D87FF 100%);
+        color: white;
+        border-radius: 1rem 1rem 0 0;
+        padding: 1rem 2rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .profile-header i {
+            font-size: 1.4rem;
+        }
+
+    h4, h5 {
+        color: #5D87FF;
+        font-weight: 700;
+    }
+
+    small.text-muted {
+        color: #7e7e7e;
+        font-weight: 600;
+    }
+
+    .text-primary {
+        color: #f48fb1 !important;
+        font-weight: 700;
+        margin-top: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .btn-outline-primary,
+    .btn-outline-info,
+    .btn-outline-success,
+    .btn-outline-warning {
+        border-radius: 30px;
+        font-weight: 700;
+        padding: 10px 28px;
+        box-shadow: 0 6px 18px rgba(93, 135, 255, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-outline-primary {
+        color: #f48fb1;
+        border-color: #f48fb1;
+    }
+
+        .btn-outline-primary:hover {
+            background: #f48fb1;
+            color: white;
+            box-shadow: 0 8px 24px rgba(244, 143, 177, 0.6);
+        }
+
+    .btn-outline-info {
+        color: #5D87FF;
+        border-color: #5D87FF;
+    }
+
+        .btn-outline-info:hover {
+            background: #5D87FF;
+            color: white;
+            box-shadow: 0 8px 24px rgba(93, 135, 255, 0.6);
+        }
+
+    .btn-outline-success {
+        color: #4caf50;
+        border-color: #4caf50;
+    }
+
+        .btn-outline-success:hover {
+            background: #4caf50;
+            color: white;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.6);
+        }
+
+    .btn-outline-warning {
+        color: #f48fb1;
+        border-color: #f48fb1;
+    }
+
+        .btn-outline-warning:hover {
+            background: #f48fb1;
+            color: white;
+            box-shadow: 0 8px 24px rgba(244, 143, 177, 0.6);
+        }
+
+    .quick-actions .btn {
+        text-align: center;
+    }
+
+    .fw-semibold {
+        font-weight: 600;
+        color: #4a4a4a;
+    }
+
+    label.text-muted {
+        font-weight: 600;
+        color: #5D87FF;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="profile-card text-center">
+                <img src="@(Model.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                     alt="Profile Image"
+                     class="profile-image"
+                     onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';" />
+
+                <h4 class="mb-0">@Model.Name @Model.Surname</h4>
+                <small class="text-muted">@(Model.Description ?? "Açıklama eklenmemiş")</small>
+
+                <hr class="my-4" />
+
+                <div>
+                    <h5 class="text-primary mb-0">@ViewBag.ArticleCount</h5>
+                    <small class="text-muted">Toplam Bloglar</small>
+                </div>
+
+                <div class="mt-3">
+                    <a href="/Author/EditProfile" class="btn btn-outline-primary w-100 mt-2">
+                        <i class="ti ti-edit me-2"></i>Profili Düzenle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 mb-4">
+            <div class="profile-card">
+                <div class="profile-header mb-4">
+                    <i class="ti ti-info-circle"></i>
+                    <h5 class="mb-0">Kişisel Bilgiler</h5>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="text-muted">Ad Soyad</label>
+                        <div class="fw-semibold">@Model.Name @Model.Surname</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="text-muted">Email</label>
+                        <div class="fw-semibold">@(Model.Email ?? "unknown")</div>
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                        <label class="text-muted">Kullanıcı Adı</label>
+                        <div class="fw-semibold">@(Model.UserName ?? "unknown")</div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <label class="text-muted">Hakkımda</label>
+                    <p class="text-dark">
+                        @(Model.Description ?? "No description provided.")
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-4">
+            <div class="profile-card">
+                <div class="profile-header mb-4">
+                    <i class="ti ti-activity me-2"></i>
+                    <h5 class="mb-0">Hızlı Seçim</h5>
+                </div>
+
+                <div class="row quick-actions">
+                    <div class="col-md-3 mb-3">
+                        <a href="/Author/CreateArticle" class="btn btn-outline-primary w-100">
+                            <i class="ti ti-plus me-2"></i>Blog Oluştur
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/Author/MyArticleList" class="btn btn-outline-info w-100">
+                            <i class="ti ti-list me-2"></i>Bloglarım
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/Author/EditProfile" class="btn btn-outline-success w-100">
+                            <i class="ti ti-edit me-2"></i>Profili Düzenle
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/Comment/CommentList" class="btn btn-outline-warning w-100">
+                            <i class="ti ti-message me-2"></i>Yorumlarım
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
